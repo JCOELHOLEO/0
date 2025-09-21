@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Acesso Protegido</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #1f3c88, #39a0ed);
+        color: #fefefe;
+      }
+
+      main {
+        background: rgba(0, 0, 0, 0.55);
+        padding: 2.5rem 3rem;
+        border-radius: 1.2rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+        width: min(90vw, 420px);
+      }
+
+      h1 {
+        font-size: 1.9rem;
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+
+      label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.6rem;
+      }
+
+      input[type="password"] {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border-radius: 0.75rem;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        font-size: 1rem;
+        background: rgba(255, 255, 255, 0.15);
+        color: inherit;
+      }
+
+      input[type="password"]:focus {
+        outline: 2px solid rgba(57, 160, 237, 0.8);
+        outline-offset: 3px;
+      }
+
+      button {
+        margin-top: 1.25rem;
+        width: 100%;
+        padding: 0.85rem 1rem;
+        border: none;
+        border-radius: 0.75rem;
+        font-size: 1.05rem;
+        font-weight: 600;
+        cursor: pointer;
+        background: #39a0ed;
+        color: #fff;
+        transition: background 0.2s ease;
+      }
+
+      button:hover,
+      button:focus {
+        background: #2f80d5;
+      }
+
+      #message {
+        min-height: 1.2em;
+        margin-top: 1rem;
+        text-align: center;
+        font-size: 0.95rem;
+      }
+
+      .success {
+        color: #82f7a5;
+      }
+
+      .error {
+        color: #f8b6b6;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Área Restrita</h1>
+      <p>Digite a senha para acessar o conteúdo protegido.</p>
+      <form id="access-form" autocomplete="off">
+        <label for="password">Senha de acesso</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          inputmode="text"
+          required
+          aria-required="true"
+          placeholder="Digite a senha"
+        />
+        <button type="submit">Entrar</button>
+      </form>
+      <p id="message" role="status" aria-live="polite"></p>
+    </main>
+
+    <script>
+      const PASSWORD = "123$";
+      const ENCODED_URL =
+        "aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL2ZvbGRlcnMvMU1WU0h0c2JEWnV4N1hNR3ZLNmVpdlpMZHVYSjEzTGNyP3VzcD1kcml2ZV9saW5r";
+
+      const form = document.getElementById("access-form");
+      const passwordInput = document.getElementById("password");
+      const message = document.getElementById("message");
+
+      function decodeUrl(encoded) {
+        try {
+          return atob(encoded);
+        } catch (error) {
+          console.error("Erro ao decodificar URL protegida", error);
+          return null;
+        }
+      }
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const providedPassword = passwordInput.value.trim();
+
+        if (providedPassword === PASSWORD) {
+          const url = decodeUrl(ENCODED_URL);
+          if (url) {
+            message.textContent = "Senha correta! Redirecionando...";
+            message.className = "success";
+            setTimeout(() => {
+              window.location.href = url;
+            }, 800);
+          } else {
+            message.textContent = "Ocorreu um erro ao abrir o link protegido.";
+            message.className = "error";
+          }
+        } else {
+          message.textContent = "Senha incorreta. Tente novamente.";
+          message.className = "error";
+        }
+
+        passwordInput.value = "";
+        passwordInput.focus();
+      });
+    </script>
+  </body>
+</html>
