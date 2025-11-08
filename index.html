@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Prescrição e Relatórios</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>Sistema Médico</h1>
+      <p>Prescrição de receitas, relatórios e guias SADT em layout A4</p>
+    </header>
+    <main class="app-container">
+      <section class="controls">
+        <h2>Dados do paciente</h2>
+        <div class="field-group">
+          <label for="patientName">Nome</label>
+          <input type="text" id="patientName" />
+        </div>
+        <div class="field-group">
+          <label for="patientDocument">Documento</label>
+          <input type="text" id="patientDocument" />
+        </div>
+        <div class="field-group">
+          <label for="patientBirth">Data de nascimento</label>
+          <input type="date" id="patientBirth" />
+        </div>
+        <div class="field-group">
+          <label for="patientPhone">Telefone</label>
+          <input type="tel" id="patientPhone" />
+        </div>
+
+        <h2>Dados clínicos</h2>
+        <div class="field-group">
+          <label for="diagnosis">Diagnóstico / Indicação clínica</label>
+          <textarea id="diagnosis" rows="3"></textarea>
+        </div>
+        <div class="field-group">
+          <label for="notes">Observações</label>
+          <textarea id="notes" rows="3"></textarea>
+        </div>
+
+        <h2>Receituário</h2>
+        <div class="field-group">
+          <label for="prescriptionText">Medicamentos</label>
+          <textarea id="prescriptionText" rows="6" placeholder="Ex.: Tomar 1 comprimido a cada 8 horas"></textarea>
+        </div>
+
+        <h2>Solicitação SADT</h2>
+        <div class="field-group">
+          <label for="sadtProcedures">Procedimentos solicitados</label>
+          <textarea id="sadtProcedures" rows="4" placeholder="Ex.: Ressonância magnética da coluna"></textarea>
+        </div>
+        <div class="field-group">
+          <label for="sadtJustification">Justificativa clínica</label>
+          <textarea id="sadtJustification" rows="3"></textarea>
+        </div>
+
+        <div class="actions">
+          <button data-template="prescription">Gerar prescrição</button>
+          <button data-template="report">Gerar relatório médico</button>
+          <button data-template="sadt">Gerar guia SADT</button>
+          <button class="secondary" id="printDocument">Imprimir</button>
+        </div>
+      </section>
+
+      <section class="preview">
+        <iframe id="previewFrame" title="Pré-visualização do documento"></iframe>
+      </section>
+    </main>
+
+    <template id="template-prescription">
+      <section class="document">
+        <header class="document-header">
+          <div>
+            <h1>Dr.ª/Dr. __________________________________</h1>
+            <p>CRM: ____________</p>
+            <p>Clínica/Instituição __________________________________</p>
+            <p>Contato: (__) _____-_____ • Email: contato@instituicao.com</p>
+          </div>
+          <div class="logo-placeholder">LOGO</div>
+        </header>
+
+        <section class="document-body">
+          <h2>Receita Médica</h2>
+          <div class="info-line">
+            <span><strong>Paciente:</strong> <span data-field="patientName"></span></span>
+            <span><strong>Documento:</strong> <span data-field="patientDocument"></span></span>
+          </div>
+          <div class="info-line">
+            <span><strong>Nascimento:</strong> <span data-field="patientBirth"></span></span>
+            <span><strong>Telefone:</strong> <span data-field="patientPhone"></span></span>
+          </div>
+          <article class="content-block">
+            <h3>Uso Prescrito</h3>
+            <p data-field="prescriptionText"></p>
+          </article>
+          <article class="content-block">
+            <h3>Observações</h3>
+            <p data-field="notes"></p>
+          </article>
+        </section>
+
+        <footer class="document-footer">
+          <div>
+            <p>__________________________________________</p>
+            <p><strong>Assinatura e carimbo</strong></p>
+          </div>
+          <p class="footer-meta">Emitido em <span data-field="currentDate"></span></p>
+        </footer>
+      </section>
+    </template>
+
+    <template id="template-report">
+      <section class="document">
+        <header class="document-header">
+          <div>
+            <h1>Relatório Médico</h1>
+            <p>Dr.ª/Dr. __________________________________ | CRM: ____________</p>
+            <p>Especialidade: __________________________________</p>
+            <p>Clínica/Instituição __________________________________</p>
+          </div>
+          <div class="logo-placeholder">LOGO</div>
+        </header>
+
+        <section class="document-body">
+          <div class="info-line">
+            <span><strong>Paciente:</strong> <span data-field="patientName"></span></span>
+            <span><strong>Documento:</strong> <span data-field="patientDocument"></span></span>
+          </div>
+          <div class="info-line">
+            <span><strong>Nascimento:</strong> <span data-field="patientBirth"></span></span>
+            <span><strong>Telefone:</strong> <span data-field="patientPhone"></span></span>
+          </div>
+
+          <article class="content-block">
+            <h3>Indicação clínica / Diagnóstico</h3>
+            <p data-field="diagnosis"></p>
+          </article>
+
+          <article class="content-block">
+            <h3>Relato Clínico</h3>
+            <p data-field="notes"></p>
+          </article>
+        </section>
+
+        <footer class="document-footer">
+          <div>
+            <p>__________________________________________</p>
+            <p><strong>Assinatura e carimbo</strong></p>
+          </div>
+          <p class="footer-meta">Emitido em <span data-field="currentDate"></span></p>
+        </footer>
+      </section>
+    </template>
+
+    <template id="template-sadt">
+      <section class="document sadt">
+        <header class="document-header">
+          <div>
+            <h1>Guia de Serviço Profissional / SADT</h1>
+            <p>Operadora: ______________________________</p>
+            <p>Nº da Guia: _____________________________</p>
+          </div>
+          <div class="logo-placeholder">LOGO</div>
+        </header>
+
+        <section class="document-body">
+          <h2>Dados do Beneficiário</h2>
+          <div class="info-line">
+            <span><strong>Paciente:</strong> <span data-field="patientName"></span></span>
+            <span><strong>Documento:</strong> <span data-field="patientDocument"></span></span>
+          </div>
+          <div class="info-line">
+            <span><strong>Nascimento:</strong> <span data-field="patientBirth"></span></span>
+            <span><strong>Telefone:</strong> <span data-field="patientPhone"></span></span>
+          </div>
+
+          <h2>Solicitação</h2>
+          <article class="content-block">
+            <h3>Procedimentos / Exames</h3>
+            <p data-field="sadtProcedures"></p>
+          </article>
+
+          <article class="content-block">
+            <h3>Justificativa Clínica</h3>
+            <p data-field="sadtJustification"></p>
+          </article>
+
+          <article class="content-block">
+            <h3>Indicação clínica</h3>
+            <p data-field="diagnosis"></p>
+          </article>
+        </section>
+
+        <footer class="document-footer">
+          <div>
+            <p>__________________________________________</p>
+            <p><strong>Assinatura do solicitante</strong></p>
+          </div>
+          <div>
+            <p>__________________________________________</p>
+            <p><strong>Autorização da operadora</strong></p>
+          </div>
+          <p class="footer-meta">Emitido em <span data-field="currentDate"></span></p>
+        </footer>
+      </section>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>
