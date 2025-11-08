@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mapa da Coluna | Clínica Vida Ativa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero__overlay"></div>
+      <div class="hero__content">
+        <span class="hero__badge">Saúde da Coluna</span>
+        <h1>Descubra os cuidados ideais para cada região da sua coluna</h1>
+        <p>
+          Selecione a região desejada para visualizar recomendações personalizadas
+          e entender melhor os sintomas relacionados à coluna cervical, torácica
+          e lombar.
+        </p>
+        <a class="hero__cta" href="#explore">Começar</a>
+      </div>
+    </header>
+
+    <main>
+      <section id="explore" class="explore">
+        <div class="explore__panel">
+          <div class="spine-illustration">
+            <img
+              src="https://drhongjinpai.com.br/wp-content/uploads/2021/03/coluna-vertebral.png"
+              alt="Representação da coluna vertebral"
+              class="spine-illustration__image"
+            />
+            <button
+              class="spine-region"
+              data-region="cervical"
+              style="--top: 6%; --height: 17%;"
+            >
+              Coluna Cervical
+            </button>
+            <button
+              class="spine-region"
+              data-region="toracica"
+              style="--top: 24%; --height: 33%;"
+            >
+              Coluna Torácica
+            </button>
+            <button
+              class="spine-region"
+              data-region="lombar"
+              style="--top: 58%; --height: 25%;"
+            >
+              Coluna Lombar
+            </button>
+          </div>
+        </div>
+        <div class="explore__details" id="details"></div>
+      </section>
+
+      <section class="tips">
+        <h2>Cuidados Integrados para a Saúde da Coluna</h2>
+        <div class="tips__grid">
+          <article>
+            <h3>Reabilitação personalizada</h3>
+            <p>
+              Combine fisioterapia, fortalecimento muscular e ajustes posturais
+              sob orientação de especialistas para acelerar a recuperação.
+            </p>
+          </article>
+          <article>
+            <h3>Monitoramento constante</h3>
+            <p>
+              Utilize nossas consultas digitais e presenciais para acompanhar a
+              evolução dos sintomas e ajustar o plano terapêutico.
+            </p>
+          </article>
+          <article>
+            <h3>Bem-estar em foco</h3>
+            <p>
+              Meditação guiada, ergonomia no trabalho e exercícios de mobilidade
+              completam seu cuidado e garantem qualidade de vida.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <small>
+        © 2024 Clínica Vida Ativa · Agende sua avaliação pelo WhatsApp (11)
+        99999-0000
+      </small>
+    </footer>
+
+    <script src="assets/script.js" defer></script>
+  </body>
+</html>
