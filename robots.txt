@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jcoelholeo.github.io/0/sitemap.xml
